@@ -13,7 +13,8 @@
     "prepublishOnly": "make build",
     "validate": "npm ls",
     "flow": "flow",
-    "precommit": "lint-staged && make lint"
+    "precommit": "lint-staged && make lint",
+    "my": "rm -rf ./build ./dist && babel --stage 0 --out-dir ./build ./lib ./dist/react-grid-layout.min.js "
   },
   "repository": {
     "type": "git",
