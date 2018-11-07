@@ -182,7 +182,7 @@ var ReactGridLayout = (function(_React$Component) {
               activeDrag: null
             };
           });
-          _this2.onDragStop(i, x, y, { e: null, node: node });
+          // this.onDragStop(i, x, y, { e: null, node });
         }
       },
 
