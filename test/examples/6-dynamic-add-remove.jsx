@@ -19,7 +19,7 @@ class AddRemoveLayout extends React.PureComponent {
     super(props);
 
     this.state = {
-      items: [0, 1, 2, 3, 4].map(function(i, key, list) {
+      items: [0].map(function(i, key, list) {
         return {
           i: i.toString(),
           x: i * 2,
@@ -29,7 +29,7 @@ class AddRemoveLayout extends React.PureComponent {
           add: i === (list.length - 1).toString()
         };
       }),
-      newCounter: 0,
+      newCounter: 1,
       placeholderPosition: { x: 0, y: 0 }
     };
     this.dragApi = createDragApiRef();
@@ -135,15 +135,33 @@ class AddRemoveLayout extends React.PureComponent {
 
   stopPlaceholder(event, { node }) {
     if (this.dragApi.value) {
-      const containerRect = this.container.getBoundingClientRect();
-      // TODO: ...
-      // this.dragApi.value.stop({
-      //   event,
-      //   position: {
-      //     left: event.clientX - containerRect.left,
-      //     top: event.clientY - containerRect.top
-      //   }
+      // const containerRect = this.container.getBoundingClientRect();
+      // // TODO: ...
+      // // this.dragApi.value.stop({
+      // //   event,
+      // //   position: {
+      // //     left: event.clientX - containerRect.left,
+      // //     top: event.clientY - containerRect.top
+      // //   }
+      // // });
+      // this.setState(state => ({
+      //   newCounter: state.newCounter + 1
+      // }));
+
+      // this.dragApi.value.dragOut();
+      // const { x, y, w, h } = this.dragApi.value.getHover();
+      // this.setState({
+      //   items: this.state.items.concat({
+      //     i: "n" + this.state.newCounter,
+      //     h,
+      //     w,
+      //     x,
+      //     y,
+      //   }),
+      //   newCounter: this.state.newCounter + 1
       // });
+      this.dragApi.value.stop({ event });
+
       this.setState(state => ({
         newCounter: state.newCounter + 1
       }));

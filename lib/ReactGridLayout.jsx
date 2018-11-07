@@ -301,7 +301,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
             ),
             activeDrag: null
           }));
-          // this.onDragStop(i, x, y, { e: null, node });
         }
       },
 
@@ -309,6 +308,15 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         if (dragInfo) {
           const { i, w, h, x, y, node } = dragInfo;
           return { i, w, h, x, y, node };
+        }
+      },
+
+      stop: ({ event, position }) => {
+        if (dragInfo) {
+          debugger;
+          const { i, w, h, x, y, node } = dragInfo;
+          this.onDragStop(i, x, y, { e: event, node });
+          dragInfo = null;
         }
       }
 
