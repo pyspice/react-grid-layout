@@ -163,9 +163,8 @@ var ReactGridLayout = (function(_React$Component) {
         }
       },
 
-      dragOut: function dragOut(_ref2) {
-        var event = _ref2.event;
-
+      // dragOut: ({ event }) => {
+      dragOut: function dragOut() {
         if (dragInfo) {
           var _dragInfo = dragInfo,
             i = _dragInfo.i;
@@ -185,9 +184,8 @@ var ReactGridLayout = (function(_React$Component) {
         }
       },
 
-      stop: function stop(_ref3) {
-        var event = _ref3.event,
-          position = _ref3.position;
+      getXY: function getXY(_ref2) {
+        var position = _ref2.position;
 
         if (dragInfo) {
           var _dragInfo2 = dragInfo,
@@ -212,14 +210,28 @@ var ReactGridLayout = (function(_React$Component) {
             x = _calcXY2.x,
             y = _calcXY2.y;
 
-          _this2.onDragStop(i, x, y, {
-            e: event,
-            node: node,
-            newPosition: position
-          });
-          dragInfo = null;
+          return { x: x, y: y };
         }
       }
+
+      // stop: ({ event, position }) => {
+      //   if (dragInfo) {
+      //     const { i, w, h, node } = dragInfo;
+      //     const { margin, containerPadding } = this.props;
+      //     const { x, y } = calcXY(position.top, position.left, {
+      //       containerWidth: this.props.width,
+      //       cols: this.props.cols,
+      //       margin,
+      //       containerPadding: containerPadding || margin,
+      //       rowHeight: this.props.rowHeight,
+      //       maxRows: this.props.maxRows,
+      //       w,
+      //       h
+      //     });
+      //     this.onDragStop(i, x, y, { e: event, node, newPosition: position });
+      //     dragInfo = null;
+      //   }
+      // }
     };
 
     this.setState({ mounted: true });
@@ -295,9 +307,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref4) {
-    var e = _ref4.e,
-      node = _ref4.node;
+  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref3) {
+    var e = _ref3.e,
+      node = _ref3.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -320,9 +332,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref5) {
-    var e = _ref5.e,
-      node = _ref5.node;
+  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref4) {
+    var e = _ref4.e,
+      node = _ref4.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
     var cols = this.props.cols;
@@ -370,9 +382,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref6) {
-    var e = _ref6.e,
-      node = _ref6.node;
+  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref5) {
+    var e = _ref5.e,
+      node = _ref5.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
     var _props3 = this.props,
@@ -425,10 +437,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref7
+    _ref6
   ) {
-    var e = _ref7.e,
-      node = _ref7.node;
+    var e = _ref6.e,
+      node = _ref6.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -443,9 +455,9 @@ var ReactGridLayout = (function(_React$Component) {
     this.props.onResizeStart(layout, l, l, null, e, node);
   };
 
-  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref8) {
-    var e = _ref8.e,
-      node = _ref8.node;
+  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref7) {
+    var e = _ref7.e,
+      node = _ref7.node;
     var _state = this.state,
       layout = _state.layout,
       oldResizeItem = _state.oldResizeItem;
@@ -512,10 +524,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref9
+    _ref8
   ) {
-    var e = _ref9.e,
-      node = _ref9.node;
+    var e = _ref8.e,
+      node = _ref8.node;
     var _state2 = this.state,
       layout = _state2.layout,
       oldResizeItem = _state2.oldResizeItem;
