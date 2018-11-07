@@ -289,7 +289,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         }
       },
 
-      dragOut: ({ event }) => {
+      // dragOut: ({ event }) => {
+      dragOut: () => {
         if (dragInfo) {
           const { i } = dragInfo;
           this.setState((state, props) => ({
@@ -303,7 +304,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         }
       },
 
-      stop: ({ event, position }) => {
+      getXY: ({ position }) => {
         if (dragInfo) {
           const { i, w, h, node } = dragInfo;
           const { margin, containerPadding } = this.props;
@@ -317,10 +318,29 @@ export default class ReactGridLayout extends React.Component<Props, State> {
             w,
             h
           });
-          this.onDragStop(i, x, y, { e: event, node, newPosition: position });
-          dragInfo = null;
+
+          return { x, y };
         }
       }
+
+      // stop: ({ event, position }) => {
+      //   if (dragInfo) {
+      //     const { i, w, h, node } = dragInfo;
+      //     const { margin, containerPadding } = this.props;
+      //     const { x, y } = calcXY(position.top, position.left, {
+      //       containerWidth: this.props.width,
+      //       cols: this.props.cols,
+      //       margin,
+      //       containerPadding: containerPadding || margin,
+      //       rowHeight: this.props.rowHeight,
+      //       maxRows: this.props.maxRows,
+      //       w,
+      //       h
+      //     });
+      //     this.onDragStop(i, x, y, { e: event, node, newPosition: position });
+      //     dragInfo = null;
+      //   }
+      // }
     };
 
     this.setState({ mounted: true });

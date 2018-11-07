@@ -116,13 +116,14 @@ class AddRemoveLayout extends React.PureComponent {
       const left = event.clientX - containerRect.left;
       const top = event.clientY - containerRect.top;
       if (left < 0 || top < 0) {
-        this.dragApi.value.dragOut({
-          event,
-          position: {
-            left,
-            top
-          }
-        });
+        // this.dragApi.value.dragOut({
+        //   event,
+        //   position: {
+        //     left,
+        //     top
+        //   }
+        // });
+        this.dragApi.value.dragOut();
       } else {
         this.dragApi.value.dragIn({
           i: "n" + this.state.newCounter,
@@ -142,13 +143,14 @@ class AddRemoveLayout extends React.PureComponent {
   stopPlaceholder(event, { node }) {
     if (this.dragApi.value) {
       const containerRect = this.container.getBoundingClientRect();
-      this.dragApi.value.stop({
-        event,
-        position: {
-          left: event.clientX - containerRect.left,
-          top: event.clientY - containerRect.top
-        }
-      });
+      // TODO: ...
+      // this.dragApi.value.stop({
+      //   event,
+      //   position: {
+      //     left: event.clientX - containerRect.left,
+      //     top: event.clientY - containerRect.top
+      //   }
+      // });
       this.setState(state => ({
         newCounter: state.newCounter + 1
       }));
