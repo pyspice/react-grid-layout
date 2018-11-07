@@ -125,8 +125,6 @@ var ReactGridLayout = (function(_React$Component) {
           node = _ref.node,
           event = _ref.event,
           position = _ref.position;
-
-        dragInfo = { i: i, w: w, h: h, node: node };
         var layout = _this2.state.layout;
         var _props = _this2.props,
           margin = _props.margin,
@@ -145,6 +143,7 @@ var ReactGridLayout = (function(_React$Component) {
           x = _calcXY.x,
           y = _calcXY.y;
 
+        dragInfo = { i: i, w: w, h: h, x: x, y: y, node: node };
         if (!_this2.state.activeDrag) {
           var l = { i: i, w: w, h: h, x: x, y: y };
           _this2.setState({
@@ -163,7 +162,6 @@ var ReactGridLayout = (function(_React$Component) {
         }
       },
 
-      // dragOut: ({ event }) => {
       dragOut: function dragOut() {
         if (dragInfo) {
           var _dragInfo = dragInfo,
@@ -184,33 +182,17 @@ var ReactGridLayout = (function(_React$Component) {
         }
       },
 
-      getXY: function getXY(_ref2) {
-        var position = _ref2.position;
-
+      getHover: function getHover() {
         if (dragInfo) {
           var _dragInfo2 = dragInfo,
             i = _dragInfo2.i,
             w = _dragInfo2.w,
             h = _dragInfo2.h,
+            x = _dragInfo2.x,
+            y = _dragInfo2.y,
             node = _dragInfo2.node;
-          var _props2 = _this2.props,
-            _margin = _props2.margin,
-            _containerPadding = _props2.containerPadding;
 
-          var _calcXY2 = (0, _GridItem.calcXY)(position.top, position.left, {
-              containerWidth: _this2.props.width,
-              cols: _this2.props.cols,
-              margin: _margin,
-              containerPadding: _containerPadding || _margin,
-              rowHeight: _this2.props.rowHeight,
-              maxRows: _this2.props.maxRows,
-              w: w,
-              h: h
-            }),
-            x = _calcXY2.x,
-            y = _calcXY2.y;
-
-          return { x: x, y: y };
+          return { i: i, w: w, h: h, x: x, y: y, node: node };
         }
       }
 
@@ -307,9 +289,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref3) {
-    var e = _ref3.e,
-      node = _ref3.node;
+  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref2) {
+    var e = _ref2.e,
+      node = _ref2.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -332,9 +314,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref4) {
-    var e = _ref4.e,
-      node = _ref4.node;
+  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref3) {
+    var e = _ref3.e,
+      node = _ref3.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
     var cols = this.props.cols;
@@ -382,14 +364,14 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref5) {
-    var e = _ref5.e,
-      node = _ref5.node;
+  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref4) {
+    var e = _ref4.e,
+      node = _ref4.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
-    var _props3 = this.props,
-      cols = _props3.cols,
-      preventCollision = _props3.preventCollision;
+    var _props2 = this.props,
+      cols = _props2.cols,
+      preventCollision = _props2.preventCollision;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
     if (!l) return;
@@ -437,10 +419,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref6
+    _ref5
   ) {
-    var e = _ref6.e,
-      node = _ref6.node;
+    var e = _ref5.e,
+      node = _ref5.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -455,15 +437,15 @@ var ReactGridLayout = (function(_React$Component) {
     this.props.onResizeStart(layout, l, l, null, e, node);
   };
 
-  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref7) {
-    var e = _ref7.e,
-      node = _ref7.node;
+  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref6) {
+    var e = _ref6.e,
+      node = _ref6.node;
     var _state = this.state,
       layout = _state.layout,
       oldResizeItem = _state.oldResizeItem;
-    var _props4 = this.props,
-      cols = _props4.cols,
-      preventCollision = _props4.preventCollision;
+    var _props3 = this.props,
+      cols = _props3.cols,
+      preventCollision = _props3.preventCollision;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
     if (!l) return;
@@ -524,10 +506,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref8
+    _ref7
   ) {
-    var e = _ref8.e,
-      node = _ref8.node;
+    var e = _ref7.e,
+      node = _ref7.node;
     var _state2 = this.state,
       layout = _state2.layout,
       oldResizeItem = _state2.oldResizeItem;
@@ -560,14 +542,14 @@ var ReactGridLayout = (function(_React$Component) {
     var activeDrag = this.state.activeDrag;
 
     if (!activeDrag) return null;
-    var _props5 = this.props,
-      width = _props5.width,
-      cols = _props5.cols,
-      margin = _props5.margin,
-      containerPadding = _props5.containerPadding,
-      rowHeight = _props5.rowHeight,
-      maxRows = _props5.maxRows,
-      useCSSTransforms = _props5.useCSSTransforms;
+    var _props4 = this.props,
+      width = _props4.width,
+      cols = _props4.cols,
+      margin = _props4.margin,
+      containerPadding = _props4.containerPadding,
+      rowHeight = _props4.rowHeight,
+      maxRows = _props4.maxRows,
+      useCSSTransforms = _props4.useCSSTransforms;
 
     // {...this.state.activeDrag} is pretty slow, actually
 
@@ -604,18 +586,18 @@ var ReactGridLayout = (function(_React$Component) {
     if (!child || !child.key) return;
     var l = (0, _utils.getLayoutItem)(this.state.layout, String(child.key));
     if (!l) return null;
-    var _props6 = this.props,
-      width = _props6.width,
-      cols = _props6.cols,
-      margin = _props6.margin,
-      containerPadding = _props6.containerPadding,
-      rowHeight = _props6.rowHeight,
-      maxRows = _props6.maxRows,
-      isDraggable = _props6.isDraggable,
-      isResizable = _props6.isResizable,
-      useCSSTransforms = _props6.useCSSTransforms,
-      draggableCancel = _props6.draggableCancel,
-      draggableHandle = _props6.draggableHandle;
+    var _props5 = this.props,
+      width = _props5.width,
+      cols = _props5.cols,
+      margin = _props5.margin,
+      containerPadding = _props5.containerPadding,
+      rowHeight = _props5.rowHeight,
+      maxRows = _props5.maxRows,
+      isDraggable = _props5.isDraggable,
+      isResizable = _props5.isResizable,
+      useCSSTransforms = _props5.useCSSTransforms,
+      draggableCancel = _props5.draggableCancel,
+      draggableHandle = _props5.draggableHandle;
     var mounted = this.state.mounted;
 
     // Parse 'static'. Any properties defined directly on the grid item will take precedence.
@@ -666,9 +648,9 @@ var ReactGridLayout = (function(_React$Component) {
   ReactGridLayout.prototype.render = function render() {
     var _this3 = this;
 
-    var _props7 = this.props,
-      className = _props7.className,
-      style = _props7.style;
+    var _props6 = this.props,
+      className = _props6.className,
+      style = _props6.style;
 
     var mergedClassName = (0, _classnames2.default)(
       "react-grid-layout",

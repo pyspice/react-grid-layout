@@ -262,7 +262,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
     this.props.dragApiRef.value = {
       dragIn: ({ i, w, h, node, event, position }) => {
-        dragInfo = { i, w, h, node };
         const { layout } = this.state;
         const { margin, containerPadding } = this.props;
         const { x, y } = calcXY(position.top, position.left, {
@@ -275,6 +274,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
           w,
           h
         });
+
+        dragInfo = { i, w, h, x, y, node };
         if (!this.state.activeDrag) {
           const l = { i, w, h, x, y };
           this.setState({
@@ -289,7 +290,6 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         }
       },
 
-      // dragOut: ({ event }) => {
       dragOut: () => {
         if (dragInfo) {
           const { i } = dragInfo;
@@ -304,22 +304,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         }
       },
 
-      getXY: ({ position }) => {
+      getHover: () => {
         if (dragInfo) {
-          const { i, w, h, node } = dragInfo;
-          const { margin, containerPadding } = this.props;
-          const { x, y } = calcXY(position.top, position.left, {
-            containerWidth: this.props.width,
-            cols: this.props.cols,
-            margin,
-            containerPadding: containerPadding || margin,
-            rowHeight: this.props.rowHeight,
-            maxRows: this.props.maxRows,
-            w,
-            h
-          });
-
-          return { x, y };
+          const { i, w, h, x, y, node } = dragInfo;
+          return { i, w, h, x, y, node };
         }
       }
 

@@ -116,13 +116,6 @@ class AddRemoveLayout extends React.PureComponent {
       const left = event.clientX - containerRect.left;
       const top = event.clientY - containerRect.top;
       if (left < 0 || top < 0) {
-        // this.dragApi.value.dragOut({
-        //   event,
-        //   position: {
-        //     left,
-        //     top
-        //   }
-        // });
         this.dragApi.value.dragOut();
       } else {
         this.dragApi.value.dragIn({
