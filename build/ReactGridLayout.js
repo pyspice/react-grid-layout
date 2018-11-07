@@ -165,7 +165,10 @@ var ReactGridLayout = (function(_React$Component) {
       dragOut: function dragOut() {
         if (dragInfo) {
           var _dragInfo = dragInfo,
-            i = _dragInfo.i;
+            i = _dragInfo.i,
+            x = _dragInfo.x,
+            y = _dragInfo.y,
+            node = _dragInfo.node;
 
           _this2.setState(function(state, props) {
             return {
@@ -179,6 +182,7 @@ var ReactGridLayout = (function(_React$Component) {
               activeDrag: null
             };
           });
+          _this2.onDragStop(i, x, y, { e: null, node: node });
         }
       },
 

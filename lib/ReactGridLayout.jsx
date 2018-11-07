@@ -292,7 +292,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
       dragOut: () => {
         if (dragInfo) {
-          const { i } = dragInfo;
+          const { i, x, y, node } = dragInfo;
           this.setState((state, props) => ({
             layout: compact(
               state.layout.filter(d => d.i !== i),
@@ -301,6 +301,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
             ),
             activeDrag: null
           }));
+          this.onDragStop(i, x, y, { e: null, node });
         }
       },
 
