@@ -119,7 +119,7 @@ class AddRemoveLayout extends React.PureComponent {
         this.dragApi.value.dragOut();
       } else {
         this.dragApi.value.dragIn({
-          i: "n" + this.state.newCounter,
+          i: "nd" + this.state.newCounter,
           w: 2,
           h: 2,
           event,
@@ -148,23 +148,24 @@ class AddRemoveLayout extends React.PureComponent {
       //   newCounter: state.newCounter + 1
       // }));
 
-      // this.dragApi.value.dragOut();
-      // const { x, y, w, h } = this.dragApi.value.getHover();
-      // this.setState({
-      //   items: this.state.items.concat({
-      //     i: "n" + this.state.newCounter,
-      //     h,
-      //     w,
-      //     x,
-      //     y,
-      //   }),
-      //   newCounter: this.state.newCounter + 1
-      // });
-      this.dragApi.value.stop({ event });
+      const layout = this.dragApi.value.getLayout();
+      const items = [];
+      let newCounter = this.state.newCounter;
+      for (const layoutItem of layout) {
+        const item = this.state.items.find(it => it.i === layoutItem.i);
+        if (item) {
+          items.push({ ...item, ...layoutItem });
+        } else {
+          newCounter++;
+          items.push({ ...layoutItem, i: "n" + newCounter });
+        }
+      }
 
-      this.setState(state => ({
-        newCounter: state.newCounter + 1
-      }));
+      this.setState({
+        items,
+        newCounter
+      });
+      this.dragApi.value.dragOut();
     }
   }
 

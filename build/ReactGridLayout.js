@@ -185,37 +185,8 @@ var ReactGridLayout = (function(_React$Component) {
         }
       },
 
-      getHover: function getHover() {
-        if (dragInfo) {
-          var _dragInfo2 = dragInfo,
-            i = _dragInfo2.i,
-            w = _dragInfo2.w,
-            h = _dragInfo2.h,
-            x = _dragInfo2.x,
-            y = _dragInfo2.y,
-            node = _dragInfo2.node;
-
-          return { i: i, w: w, h: h, x: x, y: y, node: node };
-        }
-      },
-
-      stop: function stop(_ref2) {
-        var event = _ref2.event,
-          position = _ref2.position;
-
-        if (dragInfo) {
-          debugger;
-          var _dragInfo3 = dragInfo,
-            i = _dragInfo3.i,
-            w = _dragInfo3.w,
-            h = _dragInfo3.h,
-            x = _dragInfo3.x,
-            y = _dragInfo3.y,
-            node = _dragInfo3.node;
-
-          _this2.onDragStop(i, x, y, { e: event, node: node });
-          dragInfo = null;
-        }
+      getLayout: function getLayout() {
+        return (0, _utils.cloneLayout)(_this2.state.layout);
       }
 
       // stop: ({ event, position }) => {
@@ -311,9 +282,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref3) {
-    var e = _ref3.e,
-      node = _ref3.node;
+  ReactGridLayout.prototype.onDragStart = function onDragStart(i, x, y, _ref2) {
+    var e = _ref2.e,
+      node = _ref2.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -336,9 +307,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref4) {
-    var e = _ref4.e,
-      node = _ref4.node;
+  ReactGridLayout.prototype.onDrag = function onDrag(i, x, y, _ref3) {
+    var e = _ref3.e,
+      node = _ref3.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
     var cols = this.props.cols;
@@ -386,9 +357,9 @@ var ReactGridLayout = (function(_React$Component) {
    * @param {Element} node The current dragging DOM element
    */
 
-  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref5) {
-    var e = _ref5.e,
-      node = _ref5.node;
+  ReactGridLayout.prototype.onDragStop = function onDragStop(i, x, y, _ref4) {
+    var e = _ref4.e,
+      node = _ref4.node;
     var oldDragItem = this.state.oldDragItem;
     var layout = this.state.layout;
     var _props2 = this.props,
@@ -441,10 +412,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref6
+    _ref5
   ) {
-    var e = _ref6.e,
-      node = _ref6.node;
+    var e = _ref5.e,
+      node = _ref5.node;
     var layout = this.state.layout;
 
     var l = (0, _utils.getLayoutItem)(layout, i);
@@ -459,9 +430,9 @@ var ReactGridLayout = (function(_React$Component) {
     this.props.onResizeStart(layout, l, l, null, e, node);
   };
 
-  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref7) {
-    var e = _ref7.e,
-      node = _ref7.node;
+  ReactGridLayout.prototype.onResize = function onResize(i, w, h, _ref6) {
+    var e = _ref6.e,
+      node = _ref6.node;
     var _state = this.state,
       layout = _state.layout,
       oldResizeItem = _state.oldResizeItem;
@@ -528,10 +499,10 @@ var ReactGridLayout = (function(_React$Component) {
     i,
     w,
     h,
-    _ref8
+    _ref7
   ) {
-    var e = _ref8.e,
-      node = _ref8.node;
+    var e = _ref7.e,
+      node = _ref7.node;
     var _state2 = this.state,
       layout = _state2.layout,
       oldResizeItem = _state2.oldResizeItem;

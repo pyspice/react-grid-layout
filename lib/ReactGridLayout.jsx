@@ -15,7 +15,8 @@ import {
   validateLayout,
   noop,
   createDragApiRef,
-  getAllCollisions
+  getAllCollisions,
+  cloneLayout
 } from "./utils";
 import GridItem, { calcXY } from "./GridItem";
 import type {
@@ -304,20 +305,8 @@ export default class ReactGridLayout extends React.Component<Props, State> {
         }
       },
 
-      getHover: () => {
-        if (dragInfo) {
-          const { i, w, h, x, y, node } = dragInfo;
-          return { i, w, h, x, y, node };
-        }
-      },
-
-      stop: ({ event, position }) => {
-        if (dragInfo) {
-          debugger;
-          const { i, w, h, x, y, node } = dragInfo;
-          this.onDragStop(i, x, y, { e: event, node });
-          dragInfo = null;
-        }
+      getLayout: () => {
+        return cloneLayout(this.state.layout);
       }
 
       // stop: ({ event, position }) => {
