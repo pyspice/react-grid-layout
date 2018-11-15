@@ -117,7 +117,7 @@ var ReactGridLayout = (function(_React$Component) {
 
     var dragInfo = null;
 
-    this.props.dragApiRef.value = {
+    this.props.dragApiRef.value = _extends({}, this.props.dragApiRef.value, {
       dragIn: function dragIn(_ref) {
         var i = _ref.i,
           w = _ref.w,
@@ -207,7 +207,7 @@ var ReactGridLayout = (function(_React$Component) {
       //     dragInfo = null;
       //   }
       // }
-    };
+    });
 
     this.setState({ mounted: true });
     // Possibly call back with layout on mount. This should be done after correcting the layout width

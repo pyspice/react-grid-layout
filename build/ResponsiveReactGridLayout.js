@@ -169,6 +169,16 @@ var ResponsiveReactGridLayout = (function(_React$Component) {
     };
   };
 
+  ResponsiveReactGridLayout.prototype.componentDidMount = function componentDidMount() {
+    var _this2 = this;
+
+    this.props.dragApiRef.value = {
+      getBreakpoint: function getBreakpoint() {
+        return _this2.state.breakpoint;
+      }
+    };
+  };
+
   ResponsiveReactGridLayout.prototype.componentWillReceiveProps = function componentWillReceiveProps(
     nextProps
   ) {
