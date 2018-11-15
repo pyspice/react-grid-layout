@@ -144,6 +144,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
 
   componentDidMount() {
     this.props.dragApiRef.value = {
+      ...this.props.dragApiRef.value,
       getBreakpoint: () => {
         return this.state.breakpoint;
       }

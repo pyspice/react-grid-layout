@@ -19,14 +19,14 @@ class AddRemoveLayout extends React.PureComponent {
     super(props);
 
     this.state = {
-      items: [0].map(function(i, key, list) {
+      items: Array.from(Array(50).keys()).map(function(i, index, list) {
         return {
-          i: i.toString(),
-          x: i * 2,
+          i: index.toString(),
+          x: index * 2,
           y: 0,
           w: 2,
           h: 2,
-          add: i === (list.length - 1).toString()
+          add: index === (list.length - 1).toString()
         };
       }),
       newCounter: 1,
@@ -120,7 +120,7 @@ class AddRemoveLayout extends React.PureComponent {
       } else {
         this.dragApi.value.dragIn({
           i: "nd" + this.state.newCounter,
-          w: 2,
+          w: 4,
           h: 2,
           event,
           node,
