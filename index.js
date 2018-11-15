@@ -5,4 +5,5 @@ module.exports.createDragApiRef = utils.createDragApiRef;
 module.exports.utils = utils;
 module.exports.Responsive = require("./build/ResponsiveReactGridLayout").default;
 module.exports.Responsive.utils = require("./build/responsiveUtils");
+module.exports.responsiveUtils = require("./build/responsiveUtils");
 module.exports.WidthProvider = require("./build/components/WidthProvider").default;
