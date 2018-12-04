@@ -135,37 +135,39 @@ class AddRemoveLayout extends React.PureComponent {
 
   stopPlaceholder(event, { node }) {
     if (this.dragApi.value) {
-      // const containerRect = this.container.getBoundingClientRect();
-      // // TODO: ...
-      // // this.dragApi.value.stop({
-      // //   event,
-      // //   position: {
-      // //     left: event.clientX - containerRect.left,
-      // //     top: event.clientY - containerRect.top
-      // //   }
-      // // });
-      // this.setState(state => ({
-      //   newCounter: state.newCounter + 1
-      // }));
-
-      const layout = this.dragApi.value.getLayout();
-      const items = [];
-      let newCounter = this.state.newCounter;
-      for (const layoutItem of layout) {
-        const item = this.state.items.find(it => it.i === layoutItem.i);
-        if (item) {
-          items.push({ ...item, ...layoutItem });
-        } else {
-          newCounter++;
-          items.push({ ...layoutItem, i: "n" + newCounter });
+      const containerRect = this.container.getBoundingClientRect();
+      debugger;
+      // TODO: ...
+      this.dragApi.value.stop({
+        i: "asdasdasd",
+        event,
+        position: {
+          left: event.clientX - containerRect.left,
+          top: event.clientY - containerRect.top
         }
-      }
-
-      this.setState({
-        items,
-        newCounter
       });
-      this.dragApi.value.dragOut();
+      this.setState(state => ({
+        newCounter: state.newCounter + 1
+      }));
+
+      // const layout = this.dragApi.value.getLayout();
+      // const items = [];
+      // let newCounter = this.state.newCounter;
+      // for (const layoutItem of layout) {
+      //   const item = this.state.items.find(it => it.i === layoutItem.i);
+      //   if (item) {
+      //     items.push({ ...item, ...layoutItem });
+      //   } else {
+      //     newCounter++;
+      //     items.push({ ...layoutItem, i: "n" + newCounter });
+      //   }
+      // }
+
+      // this.setState({
+      //   items,
+      //   newCounter
+      // });
+      // this.dragApi.value.dragOut();
     }
   }
 

@@ -308,26 +308,32 @@ export default class ReactGridLayout extends React.Component<Props, State> {
 
       getLayout: () => {
         return cloneLayout(this.state.layout);
-      }
+      },
 
-      // stop: ({ event, position }) => {
-      //   if (dragInfo) {
-      //     const { i, w, h, node } = dragInfo;
-      //     const { margin, containerPadding } = this.props;
-      //     const { x, y } = calcXY(position.top, position.left, {
-      //       containerWidth: this.props.width,
-      //       cols: this.props.cols,
-      //       margin,
-      //       containerPadding: containerPadding || margin,
-      //       rowHeight: this.props.rowHeight,
-      //       maxRows: this.props.maxRows,
-      //       w,
-      //       h
-      //     });
-      //     this.onDragStop(i, x, y, { e: event, node, newPosition: position });
-      //     dragInfo = null;
-      //   }
-      // }
+      stop: ({ i, event, position }) => {
+        if (dragInfo) {
+          const { i: oldI, w, h, node } = dragInfo;
+          const { margin, containerPadding } = this.props;
+          const { x, y } = calcXY(position.top, position.left, {
+            containerWidth: this.props.width,
+            cols: this.props.cols,
+            margin,
+            containerPadding: containerPadding || margin,
+            rowHeight: this.props.rowHeight,
+            maxRows: this.props.maxRows,
+            w,
+            h
+          });
+          this.onDragStop(
+            oldI,
+            x,
+            y,
+            { e: event, node, newPosition: position },
+            i
+          );
+          dragInfo = null;
+        }
+      }
     };
 
     this.setState({ mounted: true });
@@ -464,7 +470,13 @@ export default class ReactGridLayout extends React.Component<Props, State> {
    * @param {Event} e The mousedown event
    * @param {Element} node The current dragging DOM element
    */
-  onDragStop(i: string, x: number, y: number, { e, node }: GridDragEvent) {
+  onDragStop(
+    i: string,
+    x: number,
+    y: number,
+    { e, node }: GridDragEvent,
+    newI?: string
+  ) {
     const { oldDragItem } = this.state;
     let { layout } = this.state;
     const { cols, preventCollision } = this.props;
@@ -483,6 +495,10 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       this.compactType(),
       cols
     );
+
+    if (newI) {
+      l.i = newI;
+    }
 
     this.props.onDragStop(layout, oldDragItem, l, null, e, node);
 
