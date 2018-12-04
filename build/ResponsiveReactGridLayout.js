@@ -126,7 +126,8 @@ var ResponsiveReactGridLayout = (function(_React$Component) {
             ((_extends2 = {}),
             (_extends2[_this.state.breakpoint] = layout),
             _extends2)
-          )
+          ),
+          _this.state.breakpoint
         );
       }),
       _temp)),
