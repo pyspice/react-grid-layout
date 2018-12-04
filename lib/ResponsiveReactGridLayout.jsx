@@ -38,7 +38,7 @@ type Props<Breakpoint: string = string> = {
 
   // Callbacks
   onBreakpointChange: (Breakpoint, cols: number) => void,
-  onLayoutChange: (Layout, { [key: Breakpoint]: Layout }) => void,
+  onLayoutChange: (Layout, { [key: Breakpoint]: Layout }, Breakpoint) => void,
   onWidthChange: (
     containerWidth: number,
     margin: [number, number],
@@ -231,7 +231,7 @@ export default class ResponsiveReactGridLayout extends React.Component<
       layouts[newBreakpoint] = layout;
 
       // callbacks
-      this.props.onLayoutChange(layout, layouts);
+      this.props.onLayoutChange(layout, layouts, newBreakpoint);
       this.props.onBreakpointChange(newBreakpoint, newCols);
 
       this.setState({

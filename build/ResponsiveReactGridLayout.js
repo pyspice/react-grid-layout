@@ -270,7 +270,7 @@ var ResponsiveReactGridLayout = (function(_React$Component) {
       layouts[newBreakpoint] = _layout;
 
       // callbacks
-      this.props.onLayoutChange(_layout, layouts);
+      this.props.onLayoutChange(_layout, layouts, newBreakpoint);
       this.props.onBreakpointChange(newBreakpoint, newCols);
 
       this.setState({
