@@ -42,6 +42,16 @@ function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
 }
 
+function _objectWithoutProperties(obj, keys) {
+  var target = {};
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+  return target;
+}
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -119,12 +129,15 @@ var ReactGridLayout = (function(_React$Component) {
 
     this.props.dragApiRef.value = _extends({}, this.props.dragApiRef.value, {
       dragIn: function dragIn(_ref) {
-        var i = _ref.i,
-          w = _ref.w,
-          h = _ref.h,
+        var _ref$layout = _ref.layout,
+          i = _ref$layout.i,
+          w = _ref$layout.w,
+          h = _ref$layout.h,
+          other = _objectWithoutProperties(_ref$layout, ["i", "w", "h"]),
           node = _ref.node,
           event = _ref.event,
           position = _ref.position;
+
         var layout = _this2.state.layout;
         var _props = _this2.props,
           margin = _props.margin,
@@ -143,9 +156,13 @@ var ReactGridLayout = (function(_React$Component) {
           x = _calcXY.x,
           y = _calcXY.y;
 
-        dragInfo = { i: i, w: w, h: h, x: x, y: y, node: node };
+        dragInfo = _extends({ i: i, w: w, h: h }, other, {
+          x: x,
+          y: y,
+          node: node
+        });
         if (!_this2.state.activeDrag) {
-          var l = { i: i, w: w, h: h, x: x, y: y };
+          var l = _extends({ i: i, w: w, h: h }, other, { x: x, y: y });
           _this2.setState({
             oldDragItem: l,
             oldLayout: layout,
