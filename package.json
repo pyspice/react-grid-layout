@@ -104,8 +104,6 @@
     ]
   },
   "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && make lint && make test"
-    }
+    
   }
 }
