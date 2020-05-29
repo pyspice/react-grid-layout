@@ -18,7 +18,6 @@ import {
   fastRGLPropsEqual,
   validateLayout,
   getFirstCollision,
-  noop,
   createDragApiRef,
   DragApiRefObject
 } from "./utils";
@@ -40,7 +39,7 @@ import type {
   DragOverEvent,
   Layout,
   DroppingPosition,
-  LayoutItem,
+  LayoutItem
 } from "./utils";
 
 import type { PositionParams } from "./calculateUtils";
