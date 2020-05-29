@@ -6,3 +6,5 @@ export { default as Responsive } from "./lib/ResponsiveReactGridLayout";
 export { default as WidthProvider } from "./lib/components/WidthProvider";
 
 export { utils };
+export type DragApiRefObject = utils.DragApiRefObject;
+export const createDragApiRef = utils.createDragApiRef;
