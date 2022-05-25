@@ -66,7 +66,7 @@ export type Props = {
   dragApiRef: DragApiRefObject,
 
   // Callbacks
-  onLayoutChange: Layout => void,
+  onLayoutChange: (Layout, action: string) => void,
   onDrag: EventCallback,
   onDragStart: EventCallback,
   onDragStop: EventCallback,
@@ -339,7 +339,11 @@ export default class ReactGridLayout extends React.Component<Props, State> {
     this.setState({ mounted: true });
     // Possibly call back with layout on mount. This should be done after correcting the layout width
     // to ensure we don't rerender with the wrong width.
-    this.onLayoutMaybeChanged(this.state.layout, this.props.layout);
+    this.onLayoutMaybeChanged(
+      this.state.layout,
+      this.props.layout,
+      "componentDidMount"
+    );
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -368,7 +372,11 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       );
       const oldLayout = this.state.layout;
       this.setState({ layout: newLayout });
-      this.onLayoutMaybeChanged(newLayout, oldLayout);
+      this.onLayoutMaybeChanged(
+        newLayout,
+        oldLayout,
+        "componentWillReceiveProps"
+      );
     }
   }
 
@@ -512,13 +520,13 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       oldLayout: null
     });
 
-    this.onLayoutMaybeChanged(newLayout, oldLayout);
+    this.onLayoutMaybeChanged(newLayout, oldLayout, "dragStop");
   }
 
-  onLayoutMaybeChanged(newLayout: Layout, oldLayout: ?Layout) {
+  onLayoutMaybeChanged(newLayout: Layout, oldLayout: ?Layout, action: string) {
     if (!oldLayout) oldLayout = this.state.layout;
     if (!isEqual(oldLayout, newLayout)) {
-      this.props.onLayoutChange(newLayout);
+      this.props.onLayoutChange(newLayout, action);
     }
   }
 
@@ -608,7 +616,7 @@ export default class ReactGridLayout extends React.Component<Props, State> {
       oldLayout: null
     });
 
-    this.onLayoutMaybeChanged(newLayout, oldLayout);
+    this.onLayoutMaybeChanged(newLayout, oldLayout, "resizeStop");
   }
 
   /**
