@@ -249,7 +249,11 @@ var ReactGridLayout = (function(_React$Component) {
     this.setState({ mounted: true });
     // Possibly call back with layout on mount. This should be done after correcting the layout width
     // to ensure we don't rerender with the wrong width.
-    this.onLayoutMaybeChanged(this.state.layout, this.props.layout);
+    this.onLayoutMaybeChanged(
+      this.state.layout,
+      this.props.layout,
+      "componentDidMount"
+    );
   };
 
   ReactGridLayout.prototype.componentWillReceiveProps = function componentWillReceiveProps(
@@ -282,7 +286,11 @@ var ReactGridLayout = (function(_React$Component) {
       );
       var _oldLayout = this.state.layout;
       this.setState({ layout: newLayout });
-      this.onLayoutMaybeChanged(newLayout, _oldLayout);
+      this.onLayoutMaybeChanged(
+        newLayout,
+        _oldLayout,
+        "componentWillReceiveProps"
+      );
     }
   };
 
@@ -442,16 +450,17 @@ var ReactGridLayout = (function(_React$Component) {
       oldLayout: null
     });
 
-    this.onLayoutMaybeChanged(newLayout, oldLayout);
+    this.onLayoutMaybeChanged(newLayout, oldLayout, "dragStop");
   };
 
   ReactGridLayout.prototype.onLayoutMaybeChanged = function onLayoutMaybeChanged(
     newLayout,
-    oldLayout
+    oldLayout,
+    action
   ) {
     if (!oldLayout) oldLayout = this.state.layout;
     if (!(0, _lodash2.default)(oldLayout, newLayout)) {
-      this.props.onLayoutChange(newLayout);
+      this.props.onLayoutChange(newLayout, action);
     }
   };
 
@@ -570,7 +579,7 @@ var ReactGridLayout = (function(_React$Component) {
       oldLayout: null
     });
 
-    this.onLayoutMaybeChanged(newLayout, oldLayout);
+    this.onLayoutMaybeChanged(newLayout, oldLayout, "resizeStop");
   };
 
   /**
